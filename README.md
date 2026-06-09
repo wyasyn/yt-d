@@ -86,6 +86,11 @@ Artifacts land in `src-tauri/target/release/bundle/`:
 | macOS | `.app` bundle and `.dmg` |
 | Linux | `.deb`, `.rpm`, and `.AppImage` |
 
+> **Note (Linux/AppImage):** on distros with recent toolchains (Fedora 40+, Ubuntu 24.04+), the AppImage step can fail with `Strip call failed … unknown type [0x13] section '.relr.dyn'` — linuxdeploy's bundled `strip` is too old for modern system libraries. Build with stripping disabled:
+> ```sh
+> NO_STRIP=true npm run tauri build
+> ```
+
 Each OS builds its own installers (you build the Windows installer on Windows, etc.). For all-platform releases, a GitHub Actions matrix with [`tauri-action`](https://github.com/tauri-apps/tauri-action) is the standard approach.
 
 ## How it works
